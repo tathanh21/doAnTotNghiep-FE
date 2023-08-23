@@ -1,0 +1,87 @@
+.login-background {
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+
+    .login-container{
+        width: 350px;
+        height: 420px;
+        background-color: white;
+        margin: auto;
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    .login-content{
+        padding: 10px;
+        
+        .login-text{
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .login-input{
+            margin: 7px 0;
+            
+            .custom-input-password {
+                position: relative;
+                i {
+                    position: absolute;
+                    right: 5px;
+                    top: 10px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .btn-login{
+            width: 100%;
+            margin: 10px 0;
+            height: 30px;
+            border-radius: 15px;
+            outline: none;
+            border: none;
+            background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+          font-size: 20px;
+          color: white;
+          
+        }
+        .forgot-password{
+            font-size: 12px;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin-top: 10px;
+            margin: 5px auto;
+            .google {
+                font-size: 25px;
+                background-color: red;
+                border-radius: 50px;
+                height: 40px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                margin-right: 10px;
+            }
+
+            .facebook {
+                font-size: 25px;
+                background-color: blue;
+                border-radius: 50px;
+                height: 40px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: rgb(255, 255, 255);
+            }
+
+        }
+    }
+    
+}
