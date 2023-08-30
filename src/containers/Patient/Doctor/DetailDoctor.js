@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DetailDoctor.scss"
-// import { Redirect, Route, Switch } from "react-router-dom";
-// import UserManage from "../containers/DetailDoctor/UserManage";
-// // import UserRedux from '../containers/DetailDoctor/UserRedux';
-// import UserRedux from "../containers/DetailDoctor/Admin/UserRedux";
-// // import RegisterPackageGroupOrAcc from '../containers/DetailDoctor/RegisterPackageGroupOrAcc';
-// import Header from "../containers/Header/Header";
-// import ManageDoctor from "../containers/DetailDoctor/Admin/ManageDoctor";
 import HomeHeader from "../../HomePage/HomeHeader";
 import userService from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
+import DoctorSchedule from "./DoctorSchedule";
 class DetailDoctor extends Component {
     constructor(props){
     super(props)
@@ -63,9 +57,15 @@ class DetailDoctor extends Component {
                 </div>
             </div>
             <div className="schedule-doctor">
-
+                     <div className="content-left">
+              <DoctorSchedule
+                doctorIdFromParent={ detailDoctor && detailDoctor.id ? detailDoctor.id:-1} />
             </div>
-            <div className="detail-infor-doctor">
+              <div className="content-right">
+              
+                    </div>
+            </div>
+            <div className="detail-info-doctor">
                 {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML &&
                 <div dangerouslySetInnerHTML={{__html:detailDoctor.Markdown.contentHTML}}>
 
