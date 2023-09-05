@@ -104,7 +104,7 @@ class ManageSchedule extends Component {
         // let formatedDate = moment(currentDate[0]).unix();
       let  formatedDate = new Date(currentDate[0]).getTime();
 
-        console.log('check date', formatedDate)
+        // console.log('check date', formatedDate)
         if (rangTime && rangTime.length > 0) {
             let selectedTime = rangTime.filter(item => item.isSelected === true);
             if (selectedTime && selectedTime.length > 0) {
@@ -127,6 +127,11 @@ class ManageSchedule extends Component {
                 doctorId: selectedDoctor.value,
                 date: formatedDate
             });
+        if (response && response.errCode===0) {
+            toast.success('Save info success!')
+        } else {
+            toast.error("Error save")
+        }
         
     }
     render() {
@@ -153,7 +158,7 @@ class ManageSchedule extends Component {
                             onChange={this.handleOnChangeDatePicker}
                             className="form-control"
                             value={this.state.currentDate}
-                            minDate={new Date()}
+                            minDate={new Date().setHours(0,0,0,0)}
                         />
                     </div>
                     <div className="col-12 pick-hour-container">

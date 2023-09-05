@@ -105,6 +105,17 @@ const adminReducer = (state = initialState, action) => {
             state.allScheduleTime = [];
             return {
                 ...state
+      }
+    case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS:
+      console.log('check',action.data)
+            state.allRequiredDoctorInfo = action.data;
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILED:
+            state.allRequiredDoctorInfo = [];
+            return {
+                ...state
             }
     default:
       return state;
