@@ -8,12 +8,15 @@ import moment from "moment";
 import Localization from "moment/locale/vi";
 import { times } from "lodash";
 import { FormattedMessage } from "react-intl";
+import BookingModal from "./Modal/BookingModal";
 class DoctorSchedule extends Component {
     constructor(props){
     super(props)
     this.state={
         allDays: [],
-        allAvailableTime:[]
+        allAvailableTime: [],
+        isOpenModalBooking: false,
+        dataScheduleTimeModal:{}
     }
     }
    async componentDidMount(){
@@ -22,8 +25,14 @@ class DoctorSchedule extends Component {
        for (let i = 0; i < 7; i++){
            let object = {};
            if (language === LANGUAGES.VI) {
-               let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
-               object.label=this.capitalizeFirstLetter(labelVi)
+               if (i === 0) {
+                   let ddMM = moment(new Date()).format('DD/MM');
+                   let today = `Hôm nay  - ${ddMM}`;
+                   object.label = today;
+               } else {
+                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                    object.label=this.capitalizeFirstLetter(labelVi)
+               }    
            } else {
                 object.label = moment(new Date()).add(i, 'days').locale('en').format("ddd - DD/MM");
            }
@@ -88,11 +97,24 @@ class DoctorSchedule extends Component {
                 })
             }
         }
-   }
+    }
+    handleCLickScheduleTime = (time) => {
+        this.setState({
+            isOpenModalBooking: true,
+            dataScheduleTimeModal:time
+        })        
+    }
+    closeBookingModal = () =>
+    {
+        this.setState({
+            isOpenModalBooking:false
+        })
+        }
   render() {
-      let { allDays, allAvailableTime } = this.state;
+      let { allDays, allAvailableTime,isOpenModalBooking,dataScheduleTimeModal } = this.state;
       let { language } = this.props;
-    return (
+      return (
+        <>
       <div className="doctor-schedule-container">
             <div className="all-schedule">
                 <select onChange={(event)=>this.handleOnChangeSelect(event)}>
@@ -113,7 +135,7 @@ class DoctorSchedule extends Component {
                         allAvailableTime.map((item, index) => {
                             let timeDispplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn; 
                             return (
-                                <button key={index}>{timeDispplay}</button>
+                                <button key={index} onClick={()=>this.handleCLickScheduleTime(item)}>{timeDispplay}</button>
                         )
                         })
                         :
@@ -121,7 +143,13 @@ class DoctorSchedule extends Component {
                     }
                 </div>
             </div>
-      </div>
+              </div>
+              <BookingModal
+                  isOpenModal={isOpenModalBooking}
+                  closeBookingModal={this.closeBookingModal}
+                  dataTime={dataScheduleTimeModal}
+              />
+        </>
     );
   }
 }
