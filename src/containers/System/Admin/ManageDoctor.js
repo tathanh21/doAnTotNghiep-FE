@@ -119,7 +119,7 @@ class ManageDoctor extends Component {
     }
     if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
       let dateSelect = this.buildDataInputSelect(this.props.allDoctors, "USERS");
-      let { resPayment, resPrice, resProvince,resSpecialty } = this.props.allRequiredDoctorInfo;
+      let { resPayment, resPrice, resProvince, resSpecialty } = this.props.allRequiredDoctorInfo;
       let dataSelectedPrice = this.buildDataInputSelect(resPrice, 'PRICE');
       let dataSelectedPayment = this.buildDataInputSelect(resPayment, 'PAYMENT');
       let dataSelectedProvince = this.buildDataInputSelect(resProvince, 'PROVINCE');
@@ -156,18 +156,17 @@ class ManageDoctor extends Component {
       addressClinic: this.state.addressClinic,
       note: this.state.note,
       clinicId:this.state.selectedClinic && this.state.selectedClinic.value ? this.state.selectedClinic.value :'',
-      specialtyId:this.state.selectedSpecialty && this.state.selectedSpecialty.value ? this.state.selectedSpecialty.value :'',
-
+      specialtyId:this.state.selectedSpecialty.value && this.state.selectedSpecialty.value ? this.state.selectedSpecialty.value :'',
     });
   };
   handleChangeSelect = async(selectedOption) => {
     this.setState({ selectedOption });
-    let { listPayment, listProvince, listPrice } = this.state;
+    let { listPayment, listProvince, listPrice, listSpecialty } = this.state;
     let res = await userService.getDetailInfoDoctor(selectedOption.value);
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown;
-      let addressClinic = '', nameClinic = '', note = '', paymentId = '', priceId = '', provinceId = '',
-        selectedPayment = '', selectedPrice = "", selectedProvince = '';
+      let addressClinic = '', nameClinic = '', note = '', paymentId = '', priceId = '', provinceId = '',specialtyId='',
+        selectedPayment = '', selectedPrice = "", selectedProvince = '', selectedSpecialty='';
       if (res.data.Doctor_Info) {
         addressClinic = res.data.Doctor_Info.addressClinic;
         nameClinic = res.data.Doctor_Info.nameClinic;
@@ -175,16 +174,24 @@ class ManageDoctor extends Component {
         paymentId = res.data.Doctor_Info.paymentId;
         priceId = res.data.Doctor_Info.priceId;
         provinceId = res.data.Doctor_Info.provinceId;
+        specialtyId = res.data.Doctor_Info.specialtyId;
+
         selectedPayment = listPayment.find(item => {
           return item && item.value === paymentId
         })
          selectedPrice = listPrice.find(item => {
           return item && item.value === priceId
         })
-         selectedProvince = listProvince.find(item => {
+        selectedProvince = listProvince.find(item => {
           return item && item.value === provinceId
         })
-
+        console.log('check list ', listSpecialty)
+          console.log('...............')
+        console.log('check id',specialtyId)
+          selectedSpecialty = listSpecialty.find((item) => {
+          return item && item.value === specialtyId;
+        });
+        console.log('check it',selectedSpecialty)
       }
       this.setState({
         contentHTML: markdown.contentHTML,
@@ -196,7 +203,8 @@ class ManageDoctor extends Component {
         note: note,
         selectedPrice: selectedPrice,
         selectedPayment: selectedPayment,
-        selectedProvince:selectedProvince
+        selectedProvince: selectedProvince,
+        selectedSpecialty:selectedSpecialty
       })
     }else {
          this.setState({

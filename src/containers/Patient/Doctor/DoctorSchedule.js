@@ -39,7 +39,13 @@ class DoctorSchedule extends Component {
            object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
            arrDate.push(object)
        }
-       let res= await userService.getScheduleByDate()
+       if (this.props.doctorIdFromParent) {
+           let res = await userService.getScheduleByDate(this.props.doctorIdFromParent, arrDate[0].value);
+            this.setState({
+                allAvailableTime:res.data?res.data:[]
+            })
+       }
+       
        this.setState({
            allDays:arrDate
        })
