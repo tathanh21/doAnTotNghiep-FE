@@ -119,7 +119,7 @@ class ManageSchedule extends Component {
                 toast.error('Invalid selected time!');
                 return;
             }
-            console.log('check time',result)
+            // console.log('check time',result)
         }
         let response = await userService.saveBulkScheduleDoctor(
             {
