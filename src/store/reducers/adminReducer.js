@@ -10,6 +10,9 @@ const initialState = {
   allDoctors: [],
   allScheduleTime: [],
   allRequiredDoctorInfo: [],
+  allHandbooks: [],
+  allClinics:[],
+  allSpecialties:[],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -107,7 +110,6 @@ const adminReducer = (state = initialState, action) => {
                 ...state
       }
     case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS:
-      console.log('check',action.data)
             state.allRequiredDoctorInfo = action.data;
             return {
                 ...state
@@ -116,7 +118,41 @@ const adminReducer = (state = initialState, action) => {
             state.allRequiredDoctorInfo = [];
             return {
                 ...state
-            }
+      }
+    case actionTypes.FETCH_ALL_HANDBOOK_SUCCESS:
+      // console.log('check action',action.data)
+      state.allHandbooks = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_HANDBOOK_FAILDED:
+      state.allHandbooks = [];
+      return {
+        ...state,
+      };
+    
+    case actionTypes.FETCH_ALL_CLINIC_SUCCESS:
+      state.allClinics = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_CLINIC_FAILDED:
+      state.allClinics = [];
+      return {
+        ...state,
+      };
+    
+    case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
+      state.allSpecialties = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_SPECIALTY_FAILDED:
+      state.allSpecialties = [];
+      return {
+        ...state,
+      };
+    
     default:
       return state;
   }

@@ -320,3 +320,130 @@ export const getRequiredDoctorInfoSuccess = (allRequiredDoctorData) => ({
 export const getRequiredDoctorInfoFailded = () => ({
   type: actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILED,
 });
+
+
+export const fetchAllHandbookSuccess = () => {
+
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.getAllHandbook();
+            // console.log('check handbooks',res)
+  // return
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_HANDBOOK_SUCCESS,
+          data:res.data.reverse()
+        })
+      } else {
+        dispatch(actionTypes.FETCH_ALL_HANDBOOK_FAILDED);
+      }
+    } catch (error) {
+      dispatch(actionTypes.FETCH_ALL_HANDBOOK_FAILDED);
+      console.log("Handbook", error);
+    }
+  };
+}
+
+
+export const deleteHandbook = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.deleteHandbookService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Delete handbook success");
+        fetchAllHandbookSuccess()
+      } else {
+        toast.error("Delete handbook error");
+        dispatch(actionTypes.FETCH_ALL_HANDBOOK_FAILDED);
+      }
+    } catch (error) {
+        dispatch(actionTypes.FETCH_ALL_HANDBOOK_FAILDED);
+    }
+  };
+};
+
+
+export const fetchAllClinicSuccess = () => {
+
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.getAllClinic();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_CLINIC_SUCCESS,
+          data:res.data.reverse()
+        })
+      } else {
+        dispatch(actionTypes.FETCH_ALL_CLINIC_FAILDED);
+      }
+    } catch (error) {
+      dispatch(actionTypes.FETCH_ALL_CLINIC_FAILDED);
+      console.log("CLinic", error);
+    }
+  };
+}
+
+
+export const deleteClinic = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.deleteClinicService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Delete clinic success");
+        fetchAllClinicSuccess()
+      } else {
+        toast.error("Delete clinic error");
+        dispatch(actionTypes.FETCH_ALL_CLINIC_FAILDED);
+      }
+    } catch (error) {
+        dispatch(actionTypes.FETCH_ALL_CLINIC_FAILDED);
+    }
+  };
+};
+
+
+export const fetchAllSpecialtySuccess = () => {
+
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.getAllSpecialty();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_SPECIALTY_SUCCESS,
+          data:res.data.reverse()
+        })
+      } else {
+        dispatch(actionTypes.FETCH_ALL_SPECIALTY_FAILDED);
+      }
+    } catch (error) {
+      dispatch(actionTypes.FETCH_ALL_SPECIALTY_FAILDED);
+      console.log("CLinic", error);
+    }
+  };
+}
+
+
+export const deleteSpecialty = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.deleteSpecialtyService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Delete specialty success");
+        fetchAllSpecialtySuccess()
+      } else {
+        toast.error("Delete specialty error");
+        dispatch(actionTypes.FETCH_ALL_SPECIALTY_FAILDED);
+      }
+    } catch (error) {
+        dispatch(actionTypes.FETCH_ALL_SPECIALTY_FAILDED);
+    }
+  };
+};
+// export const deleteHandbookSuccess = (data) => ({
+//   type: actionTypes.DELETE_USER_SUCCESS,
+//   users: data,
+// });
+
+// export const fetchAllHandbookFaild = () => ({
+//   type: actionTypes.FETCH_ALL_HANDBOOK_FAILDED,
+// });

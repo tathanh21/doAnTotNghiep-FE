@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import "./TableManageUser.scss";
+// import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
@@ -16,62 +16,57 @@ const mdParser = new MarkdownIt(/* Markdown-it options */);
 function handleEditorChange({ html, text }) {
   console.log("handleEditorChange", html, text);
 }
-class TableManageUser extends Component {
+class TableManageHandbook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userRedux: [],
+      Handbooks: [],
     };
   }
-  componentDidMount() {
-    this.props.fetchUserRedux();
+ componentDidMount() {
+    this.props.fetchHanbookRedux();
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
-    if (prevProps.listUsers !== this.props.listUsers) {
+    if (prevProps.listHandbook !== this.props.listHandbook) {
       this.setState({
-        userRedux: this.props.listUsers,
+        Handbooks: this.props.listHandbook,
       });
     }
   }
-  handleDeleteUser = (user) => {
-    this.props.deleteUserRedux(user.id);
+  handleDeleteHandbook = (handbook) => {
+    this.props.deleteHandbooledux(handbook.id);
   };
-  handleEditUser = (user) => {
-    console.log(user);
-    this.props.handleEditUserFromParentKey(user);
+  handleEditHandbook = (user) => {
+    this.props.handleEditHandbookFromParentKey(user);
   };
   render() {
-    let arrUser = this.state.userRedux;
+    let arrHandbook = this.state.Handbooks;
+    // return
     return (
       <>
         <table className="container mt-5" id="customers">
           <tbody>
             <tr>
-              <th className="text-center">Email</th>
-              <th className="text-center">First Name</th>
-              <th className="text-center">Last Name</th>
-              <th className="text-center">Address</th>
+              <th className="text-center">Name</th>
               <th className="text-center">Action</th>
             </tr>
-            {arrUser &&
-              arrUser.length > 0 &&
-              arrUser.map((item, index) => {
+            {arrHandbook &&
+              arrHandbook.length > 0 &&
+              arrHandbook.map((item, index) => {
                 return (
                   <tr key={index}>
-                    <td>{item.email}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.address}</td>
+                    <td>{item.name}</td>
+                  
                     <td>
                       <button
                         className="btn-edit"
-                        onClick={() => this.handleEditUser(item)}
+                        onClick={() => this.handleEditHandbook(item)}
                       >
                         <i className="fas fa-user-edit"></i>
                       </button>
                       <button
                         className="btn-delete"
-                        onClick={() => this.handleDeleteUser(item)}
+                        onClick={() => this.handleDeleteHandbook(item)}
                       >
                         <i className="fas fa-trash"></i>
                       </button>
@@ -93,15 +88,15 @@ class TableManageUser extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listUsers: state.admin.users,
+    listHandbook: state.admin.allHandbooks,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
-    deleteUserRedux: (id) => dispatch(actions.deleteUser(id)),
+    fetchHanbookRedux: () => dispatch(actions.fetchAllHandbookSuccess()),
+    deleteHandbooledux: (id) => dispatch(actions.deleteHandbook(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageUser);
+export default connect(mapStateToProps, mapDispatchToProps)(TableManageHandbook);

@@ -1,77 +1,64 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import "./TableManageUser.scss";
+// import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 // import style manually
 import "react-markdown-editor-lite/lib/index.css";
 
-// Register plugins if required
-// MdEditor.use(YOUR_PLUGINS_HERE);
-
-// Initialize a markdown parser
-const mdParser = new MarkdownIt(/* Markdown-it options */);
-function handleEditorChange({ html, text }) {
-  console.log("handleEditorChange", html, text);
-}
-class TableManageUser extends Component {
+class TableManageSpecialty extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userRedux: [],
+      Specialties: [],
     };
   }
-  componentDidMount() {
-    this.props.fetchUserRedux();
+ componentDidMount() {
+    this.props.fetchSpeciatyRedux();
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
-    if (prevProps.listUsers !== this.props.listUsers) {
+    if (prevProps.listSpecialties !== this.props.listSpecialties) {
       this.setState({
-        userRedux: this.props.listUsers,
+        Specialties: this.props.listSpecialties,
       });
     }
   }
-  handleDeleteUser = (user) => {
-    this.props.deleteUserRedux(user.id);
+  handleDeleteSpecialty = (specialty) => {
+    this.props.deleteSpecialtyRedux(specialty.id);
   };
-  handleEditUser = (user) => {
-    console.log(user);
-    this.props.handleEditUserFromParentKey(user);
+  handleEditSpecialty = (specialty) => {
+    this.props.handleEditSpecialtyFromParentKey(specialty);
   };
   render() {
-    let arrUser = this.state.userRedux;
+    let arrSpecialty = this.state.Specialties;
+    // return
     return (
       <>
         <table className="container mt-5" id="customers">
           <tbody>
             <tr>
-              <th className="text-center">Email</th>
-              <th className="text-center">First Name</th>
-              <th className="text-center">Last Name</th>
-              <th className="text-center">Address</th>
+              <th className="text-center">Name</th>
               <th className="text-center">Action</th>
             </tr>
-            {arrUser &&
-              arrUser.length > 0 &&
-              arrUser.map((item, index) => {
+            {arrSpecialty &&
+              arrSpecialty.length > 0 &&
+              arrSpecialty.map((item, index) => {
                 return (
                   <tr key={index}>
-                    <td>{item.email}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.address}</td>
+                    <td>{item.name}</td>
+                  
                     <td>
                       <button
                         className="btn-edit"
-                        onClick={() => this.handleEditUser(item)}
+                        onClick={() => this.handleEditSpecialty(item)}
                       >
                         <i className="fas fa-user-edit"></i>
                       </button>
                       <button
                         className="btn-delete"
-                        onClick={() => this.handleDeleteUser(item)}
+                        onClick={() => this.handleDeleteSpecialty(item)}
                       >
                         <i className="fas fa-trash"></i>
                       </button>
@@ -93,15 +80,15 @@ class TableManageUser extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listUsers: state.admin.users,
+    listSpecialties: state.admin.allSpecialties,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
-    deleteUserRedux: (id) => dispatch(actions.deleteUser(id)),
+    fetchSpeciatyRedux: () => dispatch(actions.fetchAllSpecialtySuccess()),
+    deleteSpecialtyRedux: (id) => dispatch(actions.deleteSpecialty(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableManageUser);
+export default connect(mapStateToProps, mapDispatchToProps)(TableManageSpecialty);

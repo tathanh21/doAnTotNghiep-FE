@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./ManageSpecialty.scss"
 import userService from "../../../services/userService";
-import { LANGUAGES,CommonUtils } from "../../../utils";
+import { LANGUAGES,CommonUtils, CRUD_ACTION } from "../../../utils";
 import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { toast } from "react-toastify";
+import TableManageSpecialty from "./TableManageSpecialty";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -18,7 +19,8 @@ class ManageSpecialty extends Component {
         name: '',
         imageBase64: '',
         descriptionHTML: '',
-        descriptionMarkdown:''
+      descriptionMarkdown: '',
+        action:CRUD_ACTION.CREATE
     }
     }
    async componentDidMount(){
@@ -48,7 +50,7 @@ class ManageSpecialty extends Component {
       let objectUrl = URL.createObjectURL(file);
       this.setState({
         // previewImgUrl: objectUrl,
-        imageBase64: base64,
+        image: base64,
       });
     }
     };
@@ -66,9 +68,34 @@ class ManageSpecialty extends Component {
       toast.error('Add new specialty error')
     }
     // console.log(this.state)
-    }
+  }
+   handleEditSpecialtyFromParentKey=(item)=> {
+    this.setState({
+      id:item.id,
+      name: item.name,
+      image: item.image,
+      descriptionHTML: item.descriptionHTML,
+      descriptionMarkdown: item.descriptionMarkdown,
+      action:CRUD_ACTION.EDIT
+    })
+      
+  }
+    handleUpdateSpecialty=async(data)=>{
+    try {
+       console.log('check id',data)
+      let res = await userService.editSpecialtyService(data)
+      if (res && res.errCode === 0) {
+          toast.success('update thành công!')
+      } else {
+       toast.error('update thất bại!')
+      }
+  } catch (error) {
+      console.log(error)
+  } 
+}
   render() {
-   
+       let { action } = this.state;
+
       return (
           <div className="manage-specialty-container">
               <div className="ms-title">Quản lý chuyên khoa</div>
@@ -91,10 +118,11 @@ class ManageSpecialty extends Component {
             value={this.state.descriptionMarkdown}
                   />
                   <div className="col-12">
-                      <button className="btn-save-specialty" onClick={()=>this.handleSaveNewSpecialty()}>Save</button>
+              <button className={action === "CREATE" ? "btn-save-specialty" : "btn-edit-specialty"} onClick={action ==="CREATE" ?() => this.handleSaveNewSpecialty():() => this.handleUpdateSpecialty(this.state)}>{action === "CREATE" ? "CREATE":"UPDATE" }</button>
                   </div>
               </div>
-           
+       <TableManageSpecialty handleEditSpecialtyFromParentKey={this.handleEditSpecialtyFromParentKey} />
+
         </div>
     )
   }

@@ -1,26 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./ManageClinic.scss"
+import "./ManageHandbook.scss"
 import userService from "../../../services/userService";
-import { LANGUAGES,CommonUtils,CRUD_ACTION } from "../../../utils";
+import { LANGUAGES,CommonUtils, CRUD_ACTION } from "../../../utils";
 import { FormattedMessage } from "react-intl";
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { toast } from "react-toastify";
-import TableManageClinic from "./TableManageClinic";
-
+import TableManageHandbook from "./TableManageHandbook";
+import actionTypes from "../../../store/actions/actionTypes";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-class ManageClinic extends Component {
+class ManageHandbook extends Component {
     constructor(props){
     super(props)
-    this.state={
+      this.state = {
+        id:'',
         name: '',
-        imageBase64: '',
+        image: '',
         descriptionHTML: '',
-      descriptionMarkdown: '',
-      address: '',
+        descriptionMarkdown: '',
         action:CRUD_ACTION.CREATE
     }
     }
@@ -48,44 +48,45 @@ class ManageClinic extends Component {
     let file = data[0];
     if (file) {
       let base64 = await CommonUtils.toBase64(file);
-      // let objectUrl = URL.createObjectURL(file);
+      let objectUrl = URL.createObjectURL(file);
       this.setState({
         // previewImgUrl: objectUrl,
         image: base64,
       });
     }
     };
-  handleSaveNewClinic = async() => {
-    let res =await userService.createNewClinic(this.state);
+  handleSaveNewHandbook = async () => {
+    let res = await userService.createNewHandbook(this.state);
+    // console.log('check res', this.state)
+    // return
     if (res && res.errCode === 0) {
-      toast.success('Add new clinic success!')
+      toast.success('Add new handbook success!')
       this.setState({
         name: '',
-        address:'',
-        imageBase64: '',
+        image: '',
         descriptionHTML: '',
-        descriptionMarkdown: '',
-        address:''
+        descriptionMarkdown:''
       })
     } else {
-      toast.error('Add new clinic error')
+      toast.error('Add new handbook error')
     }
     // console.log(this.state)
   }
-  handleEditClinicFromParentKey = (item) => {
+  handleEditHandbookFromParentKey=(item)=> {
     this.setState({
-      id: item.id,
+      id:item.id,
       name: item.name,
-      address:item.address,
       image: item.image,
       descriptionHTML: item.descriptionHTML,
       descriptionMarkdown: item.descriptionMarkdown,
-      action: CRUD_ACTION.EDIT
+      action:CRUD_ACTION.EDIT
     })
+      
   }
-  handleUpdateClinic = async (data) => {
+  handleUpdateHandbook=async(data)=>{
     try {
-      let res = await userService.editClinicService(data)
+       console.log('check id',data)
+      let res = await userService.editHandbookService(data)
       if (res && res.errCode === 0) {
           toast.success('update thành công!')
       } else {
@@ -95,28 +96,33 @@ class ManageClinic extends Component {
       console.log(error)
   } 
 }
+  // fillDataEdit(item) {
+  //   this.setState({
+  //     name: item.name,
+  //     image: item.image,
+  //     descriptionHTML: item.descriptionHTML,
+  //     descriptionMarkdown:item.descriptionMarkdown
+  //   })
+  // }
   render() {
-       let { action } = this.state;
-
+    let { action } = this.state;
       return (
-          <div className="manage-specialty-container">
-              <div className="ms-title">Quản lý Phòng khám</div>
-              <div className="btn-add-new-specialty row">
+          <div className="manage-handbook-container">
+              <div className="ms-title">Quản lý Cẩm nang</div>
+          <div className="btn-add-new-handbook row">
+             <input className="form-control" type="hidden" value={this.state.id}/>
+
                   <div className="col-6 form-group">
-                      <label>Tên phòng khám</label>
+                      <label>Tên cẩm nang</label>
                       <input className="form-control" type="text" value={this.state.name} onChange={(event)=>this.handleOnChangeInput(event,'name')}/>
                   </div>
                     <div className="col-6 form-group">
-                      <label>Ảnh phòng khám</label> 
+                      <label>Ảnh cẩm nang</label> 
                       <input className="form-control-file" type="file" onChange={(event)=>this.handleOnChangImage(event)}/>
                   </div>
-            <div className="col-6 form-group">
-              <label>Địa chỉ phòng khám</label>
-              <input className="form-control" type="text" value={this.state.address} onChange={(event)=>this.handleOnChangeInput(event,'address')}/>
-
-                   </div>
+                   
               </div>
-              <div className="all-specialty">
+              <div className="all-handbook">
              <MdEditor
             style={{ height: "500px" }}
             renderHTML={(text) => mdParser.render(text)}
@@ -124,11 +130,10 @@ class ManageClinic extends Component {
             value={this.state.descriptionMarkdown}
                   />
                   <div className="col-12">
-              <button className={action === "CREATE" ? "btn-save-clinic" : "btn-edit-clinic"} onClick={action ==="CREATE" ?() => this.handleSaveNewClinic():() => this.handleUpdateClinic(this.state)}>{action === "CREATE" ? "CREATE":"UPDATE" }</button>
+              <button className={action === "CREATE" ? "btn-save-handbook" : "btn-edit-handbook"} onClick={action ==="CREATE" ?() => this.handleSaveNewHandbook():() => this.handleUpdateHandbook(this.state)}>{action === "CREATE" ? "CREATE":"UPDATE" }</button>
                   </div>
               </div>
-            <TableManageClinic handleEditClinicFromParentKey={this.handleEditClinicFromParentKey} />
-
+          <TableManageHandbook handleEditHandbookFromParentKey={this.handleEditHandbookFromParentKey} />
         </div>
     )
   }
@@ -144,4 +149,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageHandbook);

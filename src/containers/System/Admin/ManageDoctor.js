@@ -175,6 +175,7 @@ class ManageDoctor extends Component {
     this.setState({ selectedOption });
     let { listPayment, listProvince, listPrice, listSpecialty,listClinic } = this.state;
     let res = await userService.getDetailInfoDoctor(selectedOption.value);
+    console.log('check ',res)
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
       let markdown = res.data.Markdown;
       let addressClinic = '', nameClinic = '', note = '', paymentId = '', priceId = '', provinceId = '',specialtyId='',clinicId="",
@@ -188,6 +189,7 @@ class ManageDoctor extends Component {
         provinceId = res.data.Doctor_Info.provinceId;
         specialtyId = res.data.Doctor_Info.specialtyId;
         clinicId = res.data.Doctor_Info.clinicId;
+        
         selectedPayment = listPayment.find(item => {
           return item && item.value === paymentId
         })
