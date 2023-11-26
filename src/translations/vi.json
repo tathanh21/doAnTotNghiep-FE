@@ -8,7 +8,7 @@
         "select-doctor": "Chọn bác sĩ giỏi",
         "fee": "Gói Khám",
         "check-health": "Khám sức khỏe tổng quát",
-        "support": "Hỗ Trợ",
+        "support": "Lịch hẹn",
         "welcome": "Xin Chào"
     },
     "banner": {
@@ -27,7 +27,7 @@
             "manage-doctor": "Quản Lý Bác  Sĩ",
             "manage-admin": "Quản Lý Admin",
             "crud": "CRUD User",
-            "crud-redux": "CRUD Redux",
+            "crud-redux": "Quản lý bệnh nhân",
             "clinic": "Phòng Khám",
             "manage-clinic": "Quản Lý Phòng Khám",
             "specialty": "Chuyên Khoa",
@@ -58,7 +58,8 @@
     "homepage": {
         "outstanding-doctor": "Bác Sĩ Nổi Bật Tuần Qua",
         "more-info": "Xem thêm",
-        "specialty": "Chuyên khoa phổ biến"
+        "specialty": "Chuyên khoa phổ biến",
+        "handbook": "Cẩm Nang"
     },
     "manage-schedule": {
         "title": "Quản Lý Kế Hoạch Khám Bệnh Của Bác Sĩ",

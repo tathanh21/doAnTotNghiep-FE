@@ -181,6 +181,7 @@ class ManageDoctor extends Component {
       let addressClinic = '', nameClinic = '', note = '', paymentId = '', priceId = '', provinceId = '',specialtyId='',clinicId="",
         selectedPayment = '', selectedPrice = "", selectedProvince = '', selectedSpecialty='',selectedClinic="";
       if (res.data.Doctor_Info) {
+        console.log('check info',res.data)
         addressClinic = res.data.Doctor_Info.addressClinic;
         nameClinic = res.data.Doctor_Info.nameClinic;
         note = res.data.Doctor_Info.note;
@@ -201,13 +202,16 @@ class ManageDoctor extends Component {
         })
         console.log('check list ', listSpecialty)
           console.log('...............')
-        console.log('check id',specialtyId)
-          selectedSpecialty = listSpecialty.find((item) => {
-          return item && item.value === specialtyId;
-        });
+        console.log('check id', specialtyId)
+        
+        selectedSpecialty = listSpecialty.find(item => {
+          console.log('value',item.value)
+           return item && item.value == specialtyId
+        })
+
         console.log('check it', selectedSpecialty);
          selectedClinic = listClinic.find(item => {
-          return item && item.value === clinicId
+          return item && item.value == clinicId
         })
       }
       this.setState({

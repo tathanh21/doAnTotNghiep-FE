@@ -8,7 +8,7 @@
         "select-doctor": "Choose a good doctor",
         "fee": "Examination Package",
         "check-health": "General health check",
-        "support": "Support",
+        "support": "Appointment schedule",
         "welcome": "Welcome"
     },
     "banner": {
@@ -27,7 +27,7 @@
             "manage-doctor": "Manage Users",
             "manage-admin": "Manage Admin",
             "crud": "CRUD User",
-            "crud-redux": "CRUD Redux",
+            "crud-redux": "Manage User",
             "clinic": "Clinic",
             "manage-clinic": "Manage Clinic",
             "specialty": "Specialty",
@@ -58,7 +58,8 @@
     "homepage": {
         "outstanding-doctor": "Last Week's Featured Doctor",
         "more-info": "See More",
-        "specialty": "Specialty"
+        "specialty": "Specialty",
+        "handbook": "Handbook"
     },
     "manage-schedule": {
         "title": "Manage Your Doctor's Examination Plan",

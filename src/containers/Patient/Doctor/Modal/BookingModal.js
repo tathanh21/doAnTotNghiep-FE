@@ -65,7 +65,6 @@ class BookingModal extends Component {
           timeType:this.props.dataTime.timeType
         })
       }
-
     }
   }
   handleOnChangeInput=(event, id)=>{
@@ -105,6 +104,7 @@ class BookingModal extends Component {
       doctorName:doctorName
     })
     if (res && res.errCode === 0) {
+
       toast.success('Booking a new appointment success!');
       this.props.closeBookingModal()
     } else {
@@ -204,7 +204,7 @@ class BookingModal extends Component {
                             onChange={this.handleOnChangeDatePicker}
                             className="form-control"
                             value={this.state.currentDate}
-                            minDate={new Date().setHours(0,0,0,0)}
+                            // minDate={new Date().setHours(0,0,0,0)}
                         />
                   </div>
                    <div className="col-6 form-group">

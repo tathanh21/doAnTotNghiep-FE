@@ -63,26 +63,26 @@ class RemedyModal extends Component {
                 <ModalBody>
                     <div className='row'>
                         <div className='col-6 form-group'>
-                            <div className='form-control'>
-                                <label>Email benh nhan</label>
-                                <input type='email' value={this.state.email}
+                            <div>
+                                <label>Email bệnh nhân</label>
+                                <input style={{width:'180px',height:'40px'}} type='text' value={this.state.email}
                                     onChange={(event) => this.handleOnChangeEmail(event)}
                                 />
                             </div>
                         </div>
-                        <div className='col-6 form-group'>
+                        {/* <div className='col-6 form-group'>
                             <div className='form-control'>
                                 <label>Chon file don thuoc</label>
                                 <input className='form-control-file' type='file'
                                     onChange={(event) => this.handleOnChangeImage(event)}
                                 />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={() => this.sendRemedy()}>
-                        Do Something
+                        Xác Nhận
                     </Button>
                     <Button color="secondary" onClick={closeRemedyModal}>
                         Cancel

@@ -105,6 +105,7 @@ class DoctorSchedule extends Component {
         }
     }
     handleCLickScheduleTime = (time) => {
+        console.log('click time')
         this.setState({
             isOpenModalBooking: true,
             dataScheduleTimeModal:time
@@ -116,9 +117,10 @@ class DoctorSchedule extends Component {
             isOpenModalBooking:false
         })
         }
-  render() {
+    render() {
       let { allDays, allAvailableTime,isOpenModalBooking,dataScheduleTimeModal } = this.state;
-      let { language } = this.props;
+        let { language } = this.props;
+        console.log('time',allAvailableTime)
       return (
         <>
       <div className="doctor-schedule-container">

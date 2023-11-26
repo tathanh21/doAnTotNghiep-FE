@@ -11,7 +11,7 @@
     .menu-group {
         &:hover {
             cursor: pointer;
-            background-color: darken($colormain, 5);
+            background-color: rgb(51, 81, 255);
         }
         .menu-group-name {
             line-height: 40px;
@@ -65,16 +65,17 @@
                         }
                         &.active a {
                             font-weight: 500;
-                            color: $colormain;
+                            color: #0071BA;
                         }
                     }
                 }
                 &.active span {
                     font-weight: 500;
-                    color: $colormain;
+                    color: #0071BA;
+
                 }
                 &:hover {
-                    background-color: darken($bg-menu-color, 3);
+                    background-color: #0071BA;
                     .sub-menu-list {
                         display: block;
                     }

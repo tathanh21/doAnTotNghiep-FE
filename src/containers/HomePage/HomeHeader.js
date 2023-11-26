@@ -17,6 +17,11 @@ class HomeHeader extends Component {
             this.props.history.push(`/home`)
         }
     }
+    linkPointment = () => {
+        if (this.props.history) {
+            this.props.history.push(`/apointment`)
+        }
+    }
     render() {
         let language = this.props.language;
         return (
@@ -24,7 +29,6 @@ class HomeHeader extends Component {
                 <div className='home-header-container'>
                     <div className='home-headercontent'>
                         <div className='left-content'>
-                            <i className="fas fa-bars"></i>
                             <img className='header-logo' src={logo} onClick={() => this.returnToHome()}></img>
                         </div>
                         <div className='center-content'>
@@ -46,7 +50,7 @@ class HomeHeader extends Component {
                             </div>
                         </div>
                         <div className='right-content'>
-                            <div className='support'>
+                            <div className='support' onClick={()=>this.linkPointment()}>
                                 <i className="fas fa-question-circle"></i>
                                 <FormattedMessage id="homeheader.support" />
                             </div>

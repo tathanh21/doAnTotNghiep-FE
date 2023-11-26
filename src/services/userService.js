@@ -107,7 +107,9 @@ const getAllPatientForDoctor = (data) => {
 const postSendRemedy = (data) => {
    return axios.post("/api/send-remedy", data);
 }
-
+const handleEmailPatientApi = (email) => {
+   return axios.post("/api/login-email", {email});
+}
 export default {
   handleLoginApi,
   getAllUser,
@@ -141,5 +143,6 @@ export default {
   editClinicService,
   deleteClinicService,
   editSpecialtyService,
-  deleteSpecialtyService
+  deleteSpecialtyService,
+  handleEmailPatientApi
 };

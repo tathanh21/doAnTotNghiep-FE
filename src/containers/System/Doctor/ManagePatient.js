@@ -111,8 +111,8 @@ class ManagePatient extends Component {
             spinner
             text='Loading....'
       >
-           <div className="manage-patient-container">
-              <div className="m-p-title">Quản lý bệnh nhân khám bệnh</div>
+           <div className=" manage-patient-container">
+              <div className="m-p-title font-weight-bold">Quản lý bệnh nhân khám bệnh</div>
               <div className="manage-patient-body row">
                   <div className="col-2 form-group">
                       <label>Chọn ngày khám</label>
@@ -123,15 +123,16 @@ class ManagePatient extends Component {
                         />
                   </div>
                   <div className="col-12 table-manage-patient">
-              <table style={{width:'100%'}}>
+              <table  className="table" style={{width:'100%'}}>
                 <tbody>
-                  <tr>
+                  <tr className="">
                     <th>STT</th>
-                    <th>Thòi gian</th>
+                    <th>Thời gian</th>
                    <th>Họ và tên</th>
                    <th>Địa chỉ</th>
-                   <th>Giới tính</th>
-                    <th>Action</th>
+                      <th>Giới tính</th>
+                      <th>Hành Động</th>
+                    {/* <th>Action</th> */}
                   </tr>
                   {dataPatient && dataPatient.length > 0 ?
                     dataPatient.map((item, index) => {
@@ -147,8 +148,7 @@ class ManagePatient extends Component {
                           <td>{gender}</td>
                           <td>
                             <button className="mp-btn-confirm" onClick={() => this.handleBtnConfirm(item)}>Xác Nhận</button>
-                            <button className="mp-btn-remedy" onClick={()=>this.handleBtnRemedy()}>Gửi hóa đơn</button>
-
+                            {/* <button className="mp-btn-remedy" onClick={()=>this.handleBtnRemedy()}>Gửi hóa đơn</button> */}
                           </td>
                     </tr>
                   )

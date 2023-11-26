@@ -40,7 +40,7 @@ class MedicalFacilityy extends Component {
                                 dataClinics.map((item, index) => {
                                     return (
                                         <div className='section-customize' key={index} onClick={() => { this.handleViewDetailClinic(item) }}>
-                                            <div className='bg-image section-medical-facility' style={{ background: `url(${item.image})` }} />
+                                            <div className='bg-image section-medical-facility' style={{  backgroundPosition:'center', background: `url(${item.image})` }} />
                                             <div className='clinic-name'>{item.name}</div>
                                         </div>
                                     )
