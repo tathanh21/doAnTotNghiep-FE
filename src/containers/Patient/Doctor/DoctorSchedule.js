@@ -6,6 +6,7 @@ import userService from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import moment from "moment";
 import Localization from "moment/locale/vi";
+import * as actions from "../../../store/actions";
 import { times } from "lodash";
 import { FormattedMessage } from "react-intl";
 import BookingModal from "./Modal/BookingModal";
@@ -15,12 +16,19 @@ class DoctorSchedule extends Component {
     this.state={
         allDays: [],
         allAvailableTime: [],
+        allBooking:{},
         isOpenModalBooking: false,
         dataScheduleTimeModal:{}
     }
     }
    async componentDidMount(){
-       let { language } = this.props;
+       let { language, bookingsRedux,fetchBookingRedux } = this.props;
+        await fetchBookingRedux();
+       console.log('a',bookingsRedux);
+    //    this.setState({
+    //     allBooking: this.props.bookingsRedux
+    //    });
+       console.log('language',language);
        let arrDate = [];
        for (let i = 0; i < 7; i++){
            let object = {};
@@ -41,9 +49,26 @@ class DoctorSchedule extends Component {
        }
        if (this.props.doctorIdFromParent) {
            let res = await userService.getScheduleByDate(this.props.doctorIdFromParent, arrDate[0].value);
-            this.setState({
-                allAvailableTime:res.data?res.data:[]
-            })
+           let allTime = res.data ? res.data : [];
+           if (this.props.bookingsRedux) {
+               let timeBooking = this.props.bookingsRedux;
+               const filteredAvailableTime = allTime.filter((allTime) => {
+              return !timeBooking.some((booking) => {
+              // Kiểm tra điều kiện để loại bỏ
+               return (
+            allTime.date === booking.date &&
+            allTime.doctorId === booking.doctorId &&
+            allTime.timeType === booking.timeType
+                    );});
+               });
+               this.setState({
+                allAvailableTime: filteredAvailableTime
+            }) 
+           } else {
+              this.setState({
+                allAvailableTime: allTime
+            })  
+           }       
        }
        
        this.setState({
@@ -53,7 +78,7 @@ class DoctorSchedule extends Component {
     capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-  async  componentDidUpdate(prevProps,prevState,snapshot){
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.language !== prevProps.language) {
             let arrDate = [];
              for (let i = 0; i < 7; i++){
@@ -119,8 +144,21 @@ class DoctorSchedule extends Component {
         }
     render() {
       let { allDays, allAvailableTime,isOpenModalBooking,dataScheduleTimeModal } = this.state;
-        let { language } = this.props;
-        console.log('time',allAvailableTime)
+        let { language,bookingsRedux } = this.props;
+        console.log('time', allAvailableTime)
+        console.log('booking 3456789', bookingsRedux)
+       const filteredAvailableTime = allAvailableTime.filter((availableTime) => {
+       return !bookingsRedux.some((booking) => {
+        // Kiểm tra điều kiện để loại bỏ
+        return (
+            availableTime.date === booking.date &&
+            availableTime.doctorId === booking.doctorId &&
+            availableTime.timeType === booking.timeType
+        );
+    });
+});
+
+console.log('789645', filteredAvailableTime);
       return (
         <>
       <div className="doctor-schedule-container">
@@ -140,7 +178,7 @@ class DoctorSchedule extends Component {
                 </div>
                 <div className="time-content">
                     {allAvailableTime && allAvailableTime.length > 0 ?
-                        allAvailableTime.map((item, index) => {
+                              allAvailableTime.map((item, index) => {
                             let timeDispplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn; 
                             return (
                                 <button key={index} onClick={()=>this.handleCLickScheduleTime(item)}>{timeDispplay}</button>
@@ -164,12 +202,15 @@ class DoctorSchedule extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    language: state.app.language,
+      language: state.app.language,
+      bookingsRedux:state.admin.allBookings
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+    return {
+          fetchBookingRedux: () => dispatch(actions.fetchAllBookingSuccess()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorSchedule);

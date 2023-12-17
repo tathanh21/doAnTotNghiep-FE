@@ -92,7 +92,7 @@ class ProfileDoctor extends Component {
           </div>
         </div>
         {isShowLinkDetail === true &&
-          <div className="view-detail-doctor">
+          <div className="view-detail-doctor" style={{margin:'10px'}}>
             <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link></div>}
         {isShowPrice === true &&
           <div className="price">

@@ -17,7 +17,7 @@ class DoctorExtraInfo extends Component {
     }
    async componentDidMount(){
         let res = await userService.getExtraInfoById(this.props.doctorIdFromParent)
-     console.log('abc',res)
+    //  console.log('abc',res)
      if (res && res.errCode === 0) {
        this.setState({
          extraInfo: res.data
@@ -28,7 +28,7 @@ class DoctorExtraInfo extends Component {
     if (this.props.language !== prevProps.language) { }
    if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) { 
      let res = await userService.getExtraInfoById(this.props.doctorIdFromParent)
-     console.log('abc',res)
+    //  console.log('abc',res)
      if (res && res.errCode === 0) {
        this.setState({
          extraInfo: res.data

@@ -12,7 +12,8 @@ const initialState = {
   allRequiredDoctorInfo: [],
   allHandbooks: [],
   allClinics:[],
-  allSpecialties:[],
+  allSpecialties: [],
+  allBookings:[]
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -152,7 +153,18 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-    
+    case actionTypes.FETCH_ALL_BOOKING_SUCCESS:
+      console.log('action data',action.data);
+      state.allBookings = action.data;
+      console.log('check -------',state.allBookings);
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_BOOKING_FAILDED:
+      state.allBookings = [];
+      return {
+        ...state,
+      };
     default:
       return state;
   }

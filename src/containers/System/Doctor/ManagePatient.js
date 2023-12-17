@@ -147,7 +147,7 @@ class ManagePatient extends Component {
                           <td>{item.patientData.address}</td>
                           <td>{gender}</td>
                           <td>
-                            <button className="mp-btn-confirm" onClick={() => this.handleBtnConfirm(item)}>Xác Nhận</button>
+                            <button className="mp-btn-confirm" onClick={() => this.handleBtnConfirm(item)}>Gửi kết quả khám bệnh</button>
                             {/* <button className="mp-btn-remedy" onClick={()=>this.handleBtnRemedy()}>Gửi hóa đơn</button> */}
                           </td>
                     </tr>

@@ -220,10 +220,9 @@ class UserRedux extends Component {
       avatar,
     } = this.state;
     let { language, isLoadingRedux } = this.props;
-    // console.log("check props", this.props);
     return (
       <div className="user-redux-container">
-        <div className="title">User</div>
+        <div className="title">QUẢN LÝ BÁC SĨ VÀ BỆNH NHÂN</div>
         <div className="user-redux-body">
           <div className="container">
             <div className="row">

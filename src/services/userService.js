@@ -110,6 +110,15 @@ const postSendRemedy = (data) => {
 const handleEmailPatientApi = (email) => {
    return axios.post("/api/login-email", {email});
 }
+
+const handleCancelBookingPatientApi = (data) => {
+   return axios.post("/api/patient-cancel-booking", {data});
+}
+
+const getAllBooking = () => {
+  return axios.get(`/api/get-all-booking`);
+}
+
 export default {
   handleLoginApi,
   getAllUser,
@@ -144,5 +153,7 @@ export default {
   deleteClinicService,
   editSpecialtyService,
   deleteSpecialtyService,
-  handleEmailPatientApi
+  handleEmailPatientApi,
+  handleCancelBookingPatientApi,
+  getAllBooking
 };

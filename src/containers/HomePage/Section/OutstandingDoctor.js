@@ -66,7 +66,7 @@ class OutstadingDoctor extends Component {
                         <div className="outer-bg">
                           <div
                             className="bg-image section-outstading-doctor"
-                            style={{ background: `url(${imageBase64})` }}
+                            style={{ backgroundImage: `url(${imageBase64})` }}
                           />
                         </div>
                         <div className="position text-center">

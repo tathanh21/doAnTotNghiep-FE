@@ -28,11 +28,18 @@ div._loading_overlay_wrapper {
             .mp-btn-confirm {
                 margin-right: 10px;
                 height: 30px;
-                width: 100px;
+                width: 170px;
                 border-radius: 5px;
                 background: orange;
             }
-
+.mp-btn-confirm:hover {
+    color: #FFF;
+                margin-right: 10px;
+                height: 30px;
+                width: 170px;
+                border-radius: 5px;
+                background: rgb(236, 156, 7);
+            }
             .mp-btn-remedy {
                 margin-right: 10px;
                 height: 30px;

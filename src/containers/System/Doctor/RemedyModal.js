@@ -70,14 +70,14 @@ class RemedyModal extends Component {
                                 />
                             </div>
                         </div>
-                        {/* <div className='col-6 form-group'>
+                        <div className='col-6 form-group'>
                             <div className='form-control'>
-                                <label>Chon file don thuoc</label>
-                                <input className='form-control-file' type='file'
+                                <label for="remedy">Chon file don thuoc</label>
+                                <input id='remedy' hidden className='form-control-file' type='file'
                                     onChange={(event) => this.handleOnChangeImage(event)}
                                 />
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 </ModalBody>
                 <ModalFooter>

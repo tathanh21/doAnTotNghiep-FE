@@ -41,7 +41,7 @@ class Handbook extends Component {
                                 && dataHandbook.map((item, index) => {
                                     return (
                                         <div className='section-customize' key={index} onClick={() => { this.handleViewDetailDoctor(item) }}>
-                                            <div className='bg-image section-specialty' style={{  background: ` url(${item.image})` }} />
+                                            <div className='bg-image section-specialty' style={{  backgroundImage: ` url(${item.image})` }} />
                                             <div className='specialty-name'>{item.name}</div>
                                         </div>
                                     )

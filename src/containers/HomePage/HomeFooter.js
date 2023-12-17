@@ -17,7 +17,7 @@ class HomeFooter extends Component {
                             <p>Công ty cổ phần công nghệ Booking Care</p>
                             <p><i class="fas fa-map-marker"></i> Lô B4/D21, Khu đô thị mới Cầu Giấy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Thành phố Hà Nội, Việt Nam</p>
                             <p><i class="fas fa-check"></i> ĐKKD số. 0106790291. Sở KHĐT Hà Nội cấp ngày 16/03/2015</p>
-                            <p>Văn phòn ở Hồ Chí Minh</p>
+                            <p>Văn phòng ở Hồ Chí Minh</p>
                             <p>Số 01, Hồ Bá Kiện, Phường 15, Quận 10</p>
                             <p>Hỗ trợ khách hàng</p>
                             <p>support@bookingcare.vn (7h - 18h)</p>

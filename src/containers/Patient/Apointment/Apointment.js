@@ -5,9 +5,6 @@ import userService from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import { FormattedMessage } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
-import DoctorSchedule from "../Doctor/DoctorSchedule";
-import DoctorExtraInfo from "../Doctor/DoctorExtraInfo";
-import ProfileDoctor from "../Doctor/ProfileDoctor";
 import _ from "lodash";
 import moment from "moment";
 class Apointment extends Component {
@@ -66,7 +63,8 @@ class Apointment extends Component {
            })
         }
         if (data && data.errCode === 0) {
-            this.setState({
+          this.setState({
+              message:'',
                 patient:data.patient
             })
         }
@@ -74,33 +72,67 @@ class Apointment extends Component {
     async componentDidUpdate(prevProps, prevState, snapshot) {
    
      }
- 
+  cancelBooking = async (patient) => {
+    let dataPatient = {
+      email:patient.email,
+      doctorId:patient.patientData.doctorId,
+      patientId:patient.patientData.patientId,
+      timeType:patient.patientData.timeType,
+    }
+    // console.log('abc',dataPatient)
+    let data =await userService.handleCancelBookingPatientApi(dataPatient)
+         if (data && data.errCode === 0) {
+            this.setState({
+               message:data.errMessage
+           })
+         } 
+         else  {
+             this.setState({
+               message:''
+           })     
+        }
+ }
     render() {
-      console.log('abc',this.state.patient)
+      // console.log('abc',this.state.patient)
     let { message,patient } = this.state;
     let {language} = this.props;
       return (
           <div className="">
           <HomeHeader />
               <div className="row">
-                  <div className="errMessage col-12">{this.state.message }</div>
-                  <div className="form-email col-12"><input type="email" value={this.state.email} onChange={(event) => this.handleEmail(event)} />
-                      <button onClick={()=>{this.handle()}}>Xác Nhận</button></div>
-            <div className="infoPatient row container">
-              <div className="col-12 titleIn">Thông tin lịch khám</div>
-                      <div className="col-3">
-                          <div className="avatar"></div>
-                       <div className="time">
-                       Ngày: {patient && patient.patientData && 
+                  <div className="errMessage col-12"> {this.state.message }</div>
+                  <div className="form-email col-12"><input placeholder="Nhập email của bạn" type="email" value={this.state.email} onChange={(event) => this.handleEmail(event)} />
+              <button className="btn btn-primary" onClick={() => { this.handle() }}>Xác Nhận</button></div>
+            
+            <div className="infoPatient col-12 container">
+              { patient && patient.id  &&  <div className="content">
+                <div className="content-header">
+                      Thông tin lịch khám
+                </div>
+                <div className="content-center">
+                  <div className="center-left">
+                             <div className="time">
+                      <span className="bolda">Ngày khám bệnh: </span>  {patient && patient.patientData && 
                     moment.unix(patient.patientData.date / 1000).format('dddd - DD/MM/YYYY')}
-                  <p>Thời gian: { patient && patient.patientData && patient.patientData.timeTypeDataPatient && patient.patientData.timeTypeDataPatient.valueVi }</p>
+                  <p>  <span className="bolda">Thời gian khám bệnh: </span>  { patient && patient.patientData && patient.patientData.timeTypeDataPatient && patient.patientData.timeTypeDataPatient.valueVi }</p>
                         </div>
-                      </div>
-                      <div className="col-4">
-                          <div>Bệnh nhận: {patient.firstName }</div>
-                <div>Trạng thái: {patient && patient.patientData && patient.patientData.statusDataPatient && patient.patientData.statusDataPatient.valueVi }</div>
-                <div>Địa chỉ: { patient.address}</div>
+                  </div>
+                  <div className="center-right">
+                     <div className="col-12">
+                          <div> <span className="bolda">Tên bệnh nhận: </span>  {patient.firstName }</div>
+                <div>  <span className="bolda">Trạng thái khám của bệnh nhân: </span>  {patient && patient.patientData && patient.patientData.statusDataPatient && patient.patientData.statusDataPatient.valueVi }</div>
+                <div>  <span className="bolda">Địa chỉ của bệnh nhân: </span>  { patient.address}</div>
                         </div>
+                   </div>
+                </div>
+                {patient && patient.patientData && patient.patientData.statusId !=="S4" &&  <div> 
+                  <button onClick={()=>this.cancelBooking(patient)} className="btn btn-danger" style={{margin:'5px 0'}}>Hủy</button>
+                </div>}
+               
+             </div>
+              }
+            
+                     
                   </div>
                   
           </div>

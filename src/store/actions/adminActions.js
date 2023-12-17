@@ -33,6 +33,7 @@ export const fetchPositionStart = () => {
     try {
       dispatch({ type: actionTypes.FETCH_POSITION_START });
       let res = await userService.getAllCodeService("POSITION");
+      console.log('check positon',res);
       if (res && res.errCode === 0) {
         dispatch(fetchPositionSuccess(res.data));
       } else {
@@ -439,6 +440,26 @@ export const deleteSpecialty = (data) => {
     }
   };
 };
+
+export const fetchAllBookingSuccess = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await userService.getAllBooking();
+      console.log('res',res);
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_BOOKING_SUCCESS,
+          data:res.data
+        })
+      } else {
+        dispatch(actionTypes.FETCH_ALL_BOOKING_FAILDED);
+      }
+    } catch (error) {
+      // dispatch(actionTypes.FETCH_ALL_BOOKING_FAILDED);
+    }
+  };
+}
+
 // export const deleteHandbookSuccess = (data) => ({
 //   type: actionTypes.DELETE_USER_SUCCESS,
 //   users: data,

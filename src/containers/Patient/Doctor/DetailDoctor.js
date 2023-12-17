@@ -36,9 +36,10 @@ class DetailDoctor extends Component {
     let {detailDoctor}=this.state;
     let {language}=this.props;
     let nameEn='',nameVi='';
-    if(detailDoctor && detailDoctor.positionData){
+    if (detailDoctor && detailDoctor.positionData) {
+      // console.log('----------',detailDoctor.positionData, language)
        nameVi=`${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
-       nameVi=`${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
+       nameEn=`${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
     }
     return (
       <div>
@@ -47,11 +48,10 @@ class DetailDoctor extends Component {
             <div className="intro-doctor">
                 <div className="content-left"
                 style={{backgroundImage:`url(${detailDoctor.image?detailDoctor.image:''})`}}>
-
                 </div>
                 <div className="content-right">
                     <div className="up">
-                      {language === LANGUAGES.VI ? nameVi:nameEn}
+                      {language === LANGUAGES.VI ? nameVi : nameEn}
                     </div>
                     <div className="down">
                         {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.description
