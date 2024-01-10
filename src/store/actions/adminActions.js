@@ -83,7 +83,7 @@ export const fetchRoleFailded = () => ({
 export const fetchAllUserStart = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await userService.getAllUser("ALL");
+      let res = await userService.getAllDoctor("ALL");
       if (res && res.errCode === 0) {
         dispatch(fetchAllUserSuccess(res.users.reverse()));
       } else {

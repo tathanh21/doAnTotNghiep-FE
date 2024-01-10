@@ -24,10 +24,11 @@
     "menu": {
         "admin": {
             "manage-user": "Người Dùng",
-            "manage-doctor": "Quản Lý Bác  Sĩ",
+            "searchPatient": "Tìm kiếm bệnh nhân",
+            "manage-doctor": "Quản Lý Bác Sĩ",
             "manage-admin": "Quản Lý Admin",
-            "crud": "CRUD User",
-            "crud-redux": "Quản lý bệnh nhân",
+            "crud": "Quản Lý bệnh nhân",
+            "crud-redux": "Thông tin bác sĩ",
             "clinic": "Phòng Khám",
             "manage-clinic": "Quản Lý Phòng Khám",
             "specialty": "Chuyên Khoa",
@@ -56,7 +57,7 @@
         "edit": "Lưu Thay Đổi"
     },
     "homepage": {
-        "outstanding-doctor": "Bác Sĩ Nổi Bật Tuần Qua",
+        "outstanding-doctor": "Danh sách các bác sĩ",
         "more-info": "Xem thêm",
         "specialty": "Chuyên khoa phổ biến",
         "handbook": "Cẩm Nang"

@@ -24,10 +24,11 @@
     "menu": {
         "admin": {
             "manage-user": "Users",
+            "searchPatient": "Search Patient",
             "manage-doctor": "Manage Users",
             "manage-admin": "Manage Admin",
-            "crud": "CRUD User",
-            "crud-redux": "Manage User",
+            "crud": "Manage Patient",
+            "crud-redux": "Info Doctor",
             "clinic": "Clinic",
             "manage-clinic": "Manage Clinic",
             "specialty": "Specialty",

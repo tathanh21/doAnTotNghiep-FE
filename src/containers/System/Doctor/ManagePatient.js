@@ -18,7 +18,9 @@ class ManagePatient extends Component {
       dataPatient: [],
       isOpenRemedyModal: false,
       dataModal: {},
-      isShowLoading:false
+      isShowLoading: false,
+      result: "",
+       resultByRow: [],
     }
   }
   
@@ -45,7 +47,6 @@ class ManagePatient extends Component {
  async componentDidUpdate(prevProps, prevState, snapshot) {
    
   }
-  
      handleOnChangeDatePicker = (date) => {
         this.setState({
             currentDate:date[0]
@@ -101,6 +102,29 @@ class ManagePatient extends Component {
       console.log('err',res)
     }
   }
+   handleOnChangeResult = (event,index) => {
+       // Tạo một bản sao của mảng resultByRow để tránh biến đổi trạng thái trực tiếp
+  const resultByRowCopy = [...this.state.resultByRow];
+  // Cập nhật kết quả cho chỉ số hàng cụ thể
+  resultByRowCopy[index] = event.target.value;
+
+  this.setState({
+    resultByRow: resultByRowCopy,
+  });
+    }
+  handleBtnResult = async (dataResult) => {
+    console.log('abc', this.state.resultByRow[0]);
+   let dataResultService={
+       doctorId: dataResult.doctorId,
+       patientId: dataResult.patientId, 
+       timeType: dataResult.timeType,
+       date: dataResult.date,
+       result:this.state.resultByRow[0]
+    }
+    console.log("check data",dataResultService);
+     let res = await userService.postResult(dataResultService)
+    console.log('check res',res);
+  }
   render() {
     let { dataPatient,isOpenRemedyModal,dataModal } = this.state;
     let { language } = this.props;
@@ -111,8 +135,8 @@ class ManagePatient extends Component {
             spinner
             text='Loading....'
       >
-           <div className=" manage-patient-container">
-              <div className="m-p-title font-weight-bold">Quản lý bệnh nhân khám bệnh</div>
+           <div className="manage-patient-container">
+              <div className="m-p-title font-weight-bold mt-3" style={{ fontSize: '20px' }}>Quản lý bệnh nhân khám bệnh</div>
               <div className="manage-patient-body row">
                   <div className="col-2 form-group">
                       <label>Chọn ngày khám</label>
@@ -128,9 +152,11 @@ class ManagePatient extends Component {
                   <tr className="">
                     <th>STT</th>
                     <th>Thời gian</th>
-                   <th>Họ và tên</th>
-                   <th>Địa chỉ</th>
+                    <th>Họ và tên</th>
+                    <th>Địa chỉ</th>
                       <th>Giới tính</th>
+                       <th>Trạng thái</th>
+                      <th>Kết quả khám bệnh</th>
                       <th>Hành Động</th>
                     {/* <th>Action</th> */}
                   </tr>
@@ -146,8 +172,13 @@ class ManagePatient extends Component {
                           <td>{item.patientData.firstName}</td>
                           <td>{item.patientData.address}</td>
                           <td>{gender}</td>
-                          <td>
-                            <button className="mp-btn-confirm" onClick={() => this.handleBtnConfirm(item)}>Gửi kết quả khám bệnh</button>
+                            <td>{item.statusDataPatient.valueVi}</td>
+                           <td>{item.result}</td>
+                          <td className="btn">
+                            <input type="text" value={this.state.resultByRow[index] || ''} onChange={(event) => this.handleOnChangeResult(event,index)}/>
+                            <button className="mp-btn-result" onClick={() => this.handleBtnResult(item)}>Kết quả khám bệnh</button>
+                            <br/>
+                            <button className="mp-btn-confirm" onClick={() => this.handleBtnConfirm(item)}>Gửi kết quả khám bệnh cho bệnh nhân</button>
                             {/* <button className="mp-btn-remedy" onClick={()=>this.handleBtnRemedy()}>Gửi hóa đơn</button> */}
                           </td>
                     </tr>
@@ -155,7 +186,7 @@ class ManagePatient extends Component {
                     })  
                     :
                     <tr>
-                      <td colSpan='6' style={{textAlign:'center'}}>No data</td>
+                      <td colSpan='8' style={{textAlign:'center', color:'red',fontSize:'18px'}}>Chưa có dữ liệu của bệnh nhân, vui lòng kiểm tra lại!</td>
                     </tr>
                 }
                 </tbody>

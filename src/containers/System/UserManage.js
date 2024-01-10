@@ -61,7 +61,7 @@ createNewUser=async(data)=>{
 handleDeleteUser = async (user) => {
   console.log('CLick delete', user)
   try {
-      let res = await userService.deleteUserServiceDelete(user.id);
+      let res = await userService.deleteUserService(user.id);
       if (res && res.errCode === 0) {
           await this.gettAllUserFromReact()
       } else {
@@ -112,24 +112,24 @@ doEditUser = async (user) => {
                         editUser={this.doEditUser}
                     />
                 }
-        <div className="title text-center">Manage users</div>
+        <div className="title text-center">Quản lý bệnh nhân</div>
         <div className="mx-1">
-          <button className="btn btn-primary px-2" onClick={()=>this.handleAddNewUser()}>Add New User</button>
+          <button className="btn btn-primary px-2" onClick={()=>this.handleAddNewUser()}>Thêm mới bệnh nhân</button>
         </div>
         <div className="users-table mt-3 mx-2">
           <table id="customers">
             <tr>
               <th className="text-center">Email</th>
-              <th className="text-center">First Name</th>
-              <th className="text-center">Last Name</th>
-              <th className="text-center">Address</th>
-              <th className="text-center">Action</th>
+              <th className="text-center">Họ bệnh nhân</th>
+              <th className="text-center">Tên bệnh nhân</th>
+              <th className="text-center">Địa chỉ</th>
+              <th className="text-center">Hành động</th>
             </tr>
             {arrUser &&
               arrUser.map((item, index) => {
                 return (
                   <>
-                    <tr>
+                    <tr key={index}>
                       <td>{item.email}</td>
                       <td>{item.firstName}</td>
                       <td>{item.lastName}</td>

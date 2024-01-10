@@ -19,6 +19,18 @@ div._loading_overlay_wrapper {
         padding: 20px 0;
 
         .table-manage-patient {
+            .table, th, td{
+                border: 1px solid black;
+                text-align: center;
+            }
+            .btn{
+                .mp-btn-result{
+                    margin-left: 5px;
+                    padding: 5px;
+                     border-radius: 5px;
+                         background: aqua
+                }
+            }
             button {
                 border: none;
                 outline: none;
@@ -26,6 +38,7 @@ div._loading_overlay_wrapper {
             }
 
             .mp-btn-confirm {
+                margin-top: 7px;
                 margin-right: 10px;
                 height: 30px;
                 width: 170px;

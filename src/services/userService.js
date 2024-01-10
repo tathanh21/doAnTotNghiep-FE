@@ -6,6 +6,9 @@ const handleLoginApi = (email, password) => {
 const getAllUser = (inputId) => {
   return axios.get(`/api/get-all-users?id=${inputId}`);
 };
+const getAllDoctor = (inputId) => {
+  return axios.get(`/api/get-all-doctors?id=${inputId}`);
+};
 const createNewUserService = (data) => {
   return axios.post("/api/create-new-user", data);
 };
@@ -119,9 +122,18 @@ const getAllBooking = () => {
   return axios.get(`/api/get-all-booking`);
 }
 
+const postResult = (data) => {
+  return axios.post(`/api/post-result`,{data});
+}
+
+const searchPatient = (email) => {
+  return axios.post(`/api/search-patient-doctor`,{email});
+}
+
 export default {
   handleLoginApi,
   getAllUser,
+  getAllDoctor,
   createNewUserService,
   deleteUserService,
   editUserService,
@@ -155,5 +167,7 @@ export default {
   deleteSpecialtyService,
   handleEmailPatientApi,
   handleCancelBookingPatientApi,
-  getAllBooking
+  getAllBooking,
+  postResult,
+  searchPatient
 };

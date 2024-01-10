@@ -71,10 +71,10 @@ class ModalEditUser extends Component {
                             <label>Email</label>
                             <input type='text' onChange={(event) => { this.handleOnchangInput(event, "email") }} value={this.state.email} disabled />
                         </div>
-                        <div className='input-contaniner'>
+                        {/* <div className='input-contaniner'>
                             <label>Password</label>
                             <input type='password' onChange={(event) => { this.handleOnchangInput(event, "password") }} value="123456" disabled />
-                        </div>
+                        </div> */}
                         <div className='input-contaniner'>
                             <label>First Name</label>
                             <input type='text' onChange={(event) => { this.handleOnchangInput(event, "firstName") }} value={this.state.firstName} />

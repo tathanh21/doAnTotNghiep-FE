@@ -128,7 +128,7 @@ class ManageSchedule extends Component {
                 date: formatedDate
             });
         if (response && response.errCode===0) {
-            toast.success('Save info success!')
+            toast.success('Thêm lịch hẹn bác sĩ thành công!')
         } else {
             toast.error("Error save")
         }

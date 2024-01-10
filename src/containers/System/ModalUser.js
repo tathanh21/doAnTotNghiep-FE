@@ -11,7 +11,8 @@ class ModalUser extends Component {
             password: '',
             firstName: '',
             lastName: '',
-            address: ''
+            address: '',
+             roleId:'R3'
         }
         this.listenToEmitter()
     }
@@ -23,7 +24,8 @@ class ModalUser extends Component {
                 password: '',
                 firstName: '',
                 lastName: '',
-                address: ''
+                address: '',
+               
             }
         });
     }
@@ -43,7 +45,7 @@ class ModalUser extends Component {
     }
     checkValidateInput = () => {
         let isValid = true;
-        let arrInput = ['email', 'password', 'firstName', 'lastName', 'address'];
+        let arrInput = ['email', 'firstName', 'lastName', 'address'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -53,6 +55,7 @@ class ModalUser extends Component {
         }
         return isValid;
     }
+
     handleAddNewUser = () => {
         let isValid = this.checkValidateInput();
         if (isValid === true) {
@@ -70,10 +73,10 @@ class ModalUser extends Component {
                             <label>Email</label>
                             <input type='text' onChange={(event) => { this.handleOnchangInput(event, "email") }} value={this.state.email} />
                         </div>
-                        <div className='input-contaniner'>
+                        {/* <div className='input-contaniner'>
                             <label>Password</label>
-                            <input type='password' onChange={(event) => { this.handleOnchangInput(event, "password") }} value={this.state.password} />
-                        </div>
+                            <input type='password' onChange={(event) => { this.handleOnchangInput(event, "password") }} value={this.state.password} hidden/>
+                        </div> */}
                         <div className='input-contaniner'>
                             <label>First Name</label>
                             <input type='text' onChange={(event) => { this.handleOnchangInput(event, "firstName") }} value={this.state.firstName} />
